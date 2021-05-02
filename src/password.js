@@ -2,6 +2,8 @@ const Password = () => {
 
     // Cache DOM
     let inputs = document.querySelectorAll('input[type="checkbox"]');
+    let length = document.querySelector('input[type="range"]').value;
+    let INVALID_SELECTION_MESSAGE = "Please select at least one password constraint."
     
     // Set password requirement variables
     let UPPERCASE = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"]
@@ -29,11 +31,18 @@ const Password = () => {
 
 
     let selectedConstraints = getUserSelectedConstraints(inputs);
-    console.log(selectedConstraints);
+    let password = '';
+
+    if (selectedConstraints.length < 1) {
+        password = INVALID_SELECTION_MESSAGE;
+    } else {
+        password = buildPassword(selectedConstraints, length);
+    }
 
     function getUserSelectedConstraints(input) {
         let userConstraints = [];
         
+        // Check all of the selected user inputs and grab only the necessary validations
         for (let i = 0; i < input.length; i++) {
             
             if (input[i].checked === true) {
@@ -50,12 +59,43 @@ const Password = () => {
         return userConstraints;
     }
 
+    function buildPassword(constraints, length) {
+
+        // initialize password 
+        let password = ''
+
+        // Ensure all required constraints are used at least once
+        constraints.forEach((c) => { password = password.concat(getRandomValue(c)) });
+
+        
+        // pad the rest of the password until required lenght is reached
+        let adjustedLength = length - constraints.length;
+        let flattenedConstraints = flattenConstraints(constraints)
+
+        
+        for (let i = 0; i < adjustedLength; i++) {
+            password = password.concat(getRandomValue(flattenedConstraints));
+        }
+
+        return password;
+    }
+
+    function flattenConstraints(array) {
+        let flatArray = [];
+        for (let i = 0; i < array.length; i++) {
+            for (let j = 0; j < array[i].length; j++) {
+                flatArray.push(array[i][j]);
+            }
+        }
+        return flatArray;
+    }
+
     function getRandomValue(array) {
         let randomElement = array[Math.floor(Math.random() * array.length)];
         return randomElement;
     }
 
-    return 'Boobs';
+    return password;
 
 }
 

@@ -23,8 +23,12 @@ const PasswordGenerator = () => {
     pageContent.appendChild(form);
     pageContent.appendChild(passwordDisplay);   
     
-    passwordDisplay.innerText = Password();
-    
+    updateOutput()
+
+    function updateOutput() {
+        passwordDisplay.innerText = Password();
+    }
+
     function generatePasswordInputs() {
         let newInputs = [];
         for (let i = 0; i < arguments.length; i++) {
@@ -44,6 +48,7 @@ const PasswordGenerator = () => {
     }
 
     function addInputsToForm(inputs, form) {
+
         for (let i = 0; i < inputs.length; i++) {
             form.appendChild(inputs[i]);
         }
@@ -73,6 +78,7 @@ const PasswordGenerator = () => {
         input.value = 16;
         input.oninput = () => {
             length.innerText = input.value;
+            updateOutput();
         }
 
         length.innerText = input.value;
@@ -89,6 +95,9 @@ const PasswordGenerator = () => {
         input.name = inputName;
         input.id = inputName;
         input.checked = true;
+        input.oninput = () => {
+            updateOutput();
+        }
 
         return input
     }
