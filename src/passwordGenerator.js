@@ -14,20 +14,17 @@ const PasswordGenerator = () => {
     let passwordDisplay = document.createElement('div');
     passwordDisplay.id = 'passwordDisplay';
     passwordDisplay.classList.add('password-display');
-    passwordDisplay.innerText = 'boobs';
-
+    
     // Build form Inputs 
-    let inputs = generatePasswordInputs("uppercase", "lowercase", "number", "symbols");
-
+    let inputs = generatePasswordInputs("uppercase", "lowercase", "numbers", "symbols");
+    
     // Append new elements to the page 
     addInputsToForm(inputs, form);
     pageContent.appendChild(form);
-    pageContent.appendChild(passwordDisplay);
-
-    // Generate new password
-    let password = Password();
-
-
+    pageContent.appendChild(passwordDisplay);   
+    
+    passwordDisplay.innerText = Password();
+    
     function generatePasswordInputs() {
         let newInputs = [];
         for (let i = 0; i < arguments.length; i++) {
