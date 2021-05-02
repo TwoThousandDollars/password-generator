@@ -10,6 +10,31 @@
 <body>
     <div id="content">
         <h1>Password Generator</h1>
+    <form action="" method="get">
+        <div class="form-group">
+            <input class="input--checkbox" type="checkbox" name="uppercase" id="uppercase">
+            <label for="uppercase" class="form-label--checkbox">uppercase</label>
+        </div>
+        <div class="form-group">
+            <input class="input--checkbox" type="checkbox" name="lowercase" id="lowercase">
+            <label for="lowercase" class="form-label--checkbox">lowercase</label>
+        </div>
+        <div class="form-group">
+            <input class="input--checkbox" type="checkbox" name="numbers" id="numbers">
+            <label for="numbers" class="form-label--checkbox">numbers</label>
+        </div>
+        <div class="form-group">
+            <input class="input--checkbox" type="checkbox" name="symbols" id="symbols">
+            <label for="symbols" class="form-label--checkbox">symbols</label>
+        </div>
+        <div class="form-group--number">
+            <div>
+                <p class="form-label--number">Password Length:</p>
+                <p id="lengthOutput" class="length">16</p>
+            </div>
+            <input id='passwordLength' class="input--range" type="range" min="8" max="100"></div>
+        </form>
+        <div id="passwordDisplay" class="password-display"></div>
     </div>
 </body>
 </html>
