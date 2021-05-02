@@ -1,8 +1,8 @@
-const Password = () => {
+const Password = (characterConstraints, lengthConstraint) => {
 
     // Cache DOM
-    let inputs = document.querySelectorAll('input[type="checkbox"]');
-    let length = document.querySelector('input[type="range"]').value;
+    let inputs = characterConstraints;
+    let length = lengthConstraint
     let INVALID_SELECTION_MESSAGE = "Please select at least one password constraint."
     
     // Set password requirement variables
@@ -30,7 +30,7 @@ const Password = () => {
     ]
 
 
-    let selectedConstraints = getUserSelectedConstraints(inputs);
+    let selectedConstraints = getSelectedConstraints(inputs);
     let password = '';
 
     if (selectedConstraints.length < 1) {
@@ -39,7 +39,7 @@ const Password = () => {
         password = buildPassword(selectedConstraints, length);
     }
 
-    function getUserSelectedConstraints(input) {
+    function getSelectedConstraints(input) {
         let userConstraints = [];
         
         // Check all of the selected user inputs and grab only the necessary validations
@@ -67,8 +67,7 @@ const Password = () => {
         // Ensure all required constraints are used at least once
         constraints.forEach((c) => { password = password.concat(getRandomValue(c)) });
 
-        
-        // pad the rest of the password until required lenght is reached
+        // pad the rest of the password until required length is reached
         let adjustedLength = length - constraints.length;
         let flattenedConstraints = flattenConstraints(constraints)
 
@@ -77,7 +76,20 @@ const Password = () => {
             password = password.concat(getRandomValue(flattenedConstraints));
         }
 
-        return password;
+        return shuffle(password);
+    }
+
+    function shuffle(string) {
+        let array = string.split('');
+
+        for (let i = 0; i < array.length; i++) {
+            let randomInt = Math.floor(Math.random() * (i +1));
+            let temp = array[i];
+            array[i] = array[randomInt];
+            array[randomInt] = temp;
+        }
+
+        return array.join('');
     }
 
     function flattenConstraints(array) {
