@@ -1,0 +1,34 @@
+.form-group {
+    display: flex;
+    align-items: center;
+}
+
+.form-label--checkbox {
+    text-transform: capitalize;
+}
+
+.form-label--number {
+    
+}
+
+.input--checkbox {
+    height: 1em;
+    width: 1em;
+}
+
+.input--checkbox:checked:active {
+    background-color: var(--clr-green-500);
+}
+
+p {
+    margin-top: .15em;
+    margin-bottom: 0;
+}
+
+.length {
+    color: var(--clr-green-600);
+}
+
+.password-display {
+    word-wrap: break-word;
+}

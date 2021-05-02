@@ -32,8 +32,7 @@ const PasswordGenerator = () => {
     function generatePasswordInputs() {
         let newInputs = [];
         for (let i = 0; i < arguments.length; i++) {
-            let inputGroup = document.createElement('div');
-            inputGroup.classList = 'form-group';
+            let inputGroup = createInputGroup();
 
             let label = createLabel(arguments[i]);
             let input = createInput(arguments[i]);
@@ -45,6 +44,13 @@ const PasswordGenerator = () => {
         }
         
         return newInputs;
+    }
+
+    function createInputGroup() {
+        let group = document.createElement('div');
+        group.classList = 'form-group';
+
+        return group;
     }
 
     function addInputsToForm(inputs, form) {
@@ -63,15 +69,30 @@ const PasswordGenerator = () => {
         let output = document.createElement('div');
         
         let label = document.createElement('p');
-        label.innerText = 'Password Length';
+        label.innerText = 'Password Length:';
         label.classList.add('form-label--number');
         
         let length = document.createElement('p');
+        length.classList.add('length');
 
         output.appendChild(label);
         output.appendChild(length);
         
+        let input = createNumberInputDOM(length);
+        
+        console.log(input);
+        
+        length.innerText = input.value;
+        
+        numberContainer.appendChild(output);
+        numberContainer.appendChild(input);
+        
+        return numberContainer;
+    }
+
+    function createNumberInputDOM(length) {
         let input = document.createElement('input');
+        input.classList.add('input--range');
         input.type = 'range';
         input.min = 8;
         input.max = 100;
@@ -81,16 +102,12 @@ const PasswordGenerator = () => {
             updateOutput();
         }
 
-        length.innerText = input.value;
-
-        numberContainer.appendChild(output);
-        numberContainer.appendChild(input);
-
-        return numberContainer;
+        return input;
     }
-
+    
     function createInput(inputName) {
         let input = document.createElement('input');
+        input.classList.add('input--checkbox');
         input.type='checkbox';
         input.name = inputName;
         input.id = inputName;
@@ -106,6 +123,7 @@ const PasswordGenerator = () => {
         let label = document.createElement('label');
         label.innerText = labelName;
         label.htmlFor = labelName;
+        label.classList.add('form-label--checkbox');
 
         return label;
     }
